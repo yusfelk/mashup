@@ -1,0 +1,40 @@
+{
+  "_status": "BROUILLON NON VALIDE: schema a confirmer avec validate_recipe puis one_click_check (Melty). Les noms de fichiers sont des cibles de build, pas encore des archives existantes.",
+  "games": [
+    { "slug": "peak", "role": "primary" },
+    { "slug": "minecraft-java", "role": "companion" }
+  ],
+  "loaders": { "peak": ["bepinexpack-peak"] },
+  "components": [
+    {
+      "id": "peak-plugin",
+      "fileName": "SummitSpade-PEAK-*.zip",
+      "destination": "{game}/BepInEx/plugins/SummitSpade",
+      "contains": ["SummitSpade.PEAK.dll", "link config"]
+    },
+    {
+      "id": "minecraft-instance",
+      "fileName": "SummitSpade-Minecraft-*.zip",
+      "destination": "{mashup}/prism",
+      "contains": [
+        "Prism Launcher portable",
+        "instances/SummitSpade/mmc-pack.json (Fabric Loader)",
+        "instances/SummitSpade/minecraft/mods/summitspade-bridge.jar",
+        "instances/SummitSpade/minecraft/mods/fabric-api.jar (si licence OK, avec credit)"
+      ]
+    }
+  ],
+  "setup": {
+    "run": "{mashup}/prism/PrismLauncher.exe --launch SummitSpade --setup-only",
+    "purpose": "Prism installe Fabric au premier lancement; le joueur se connecte une seule fois a son compte Minecraft"
+  },
+  "together": {
+    "launch": "{mashup}/prism/PrismLauncher.exe --launch SummitSpade",
+    "env": { "SUMMITSPADE_MC_DIR": "{game:minecraft-java}" }
+  },
+  "env": { "SUMMITSPADE_PEAK_DIR": "{game}" },
+  "multiplayer": {
+    "maxPlayers": 2,
+    "_note": "connect volontairement omis tant que l'hebergement/jonction n'est pas teste avec deux copies"
+  }
+}
